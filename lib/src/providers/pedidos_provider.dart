@@ -24,5 +24,21 @@ class PedidosProvider {
     return arrPedidos;
   }
 
+  Future<List<Pedidos>> getPedidosWithDate (String date) async {
+    SharedPreferences perfs = await SharedPreferences.getInstance();
+    List<Pedidos> arrPedidos = [];
+    
+    String fecha = date;
+    String nombre  = perfs.getString('usuario');
+    var pedidos = await http.get('https://cosbiome.online/pedidos-rutas/?fechaEntrega=$fecha&repartidor=$nombre');
+    Iterable pedidosDecode = json.decode(pedidos.body);
+    
+    pedidosDecode.forEach((element) {
+      arrPedidos.add(new Pedidos.fromJson(element));
+    });
+
+    return arrPedidos;
+  }
+
 }
 

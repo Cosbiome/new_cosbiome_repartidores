@@ -185,6 +185,7 @@ class _LoginPageState extends State<LoginPage> {
 
           Navigator.pushNamed(context, 'listapedidos');  
         } catch (e) {          
+          print(e);
           _showMyDialog();
         }
         

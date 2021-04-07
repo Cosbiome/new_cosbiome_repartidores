@@ -1,5 +1,6 @@
 import 'package:cosbiome_repartidores/src/pages/datellePedidos_page.dart';
 import 'package:cosbiome_repartidores/src/pages/login_page.dart';
+import 'package:cosbiome_repartidores/src/pages/mapapedido_page.dart';
 import 'package:cosbiome_repartidores/src/pages/pedidos_page.dart';
 import 'package:flutter/material.dart';
  
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
         'login': (BuildContext context) => LoginPage(),
         'listapedidos': (BuildContext context) => PedidosPage(),
         'detallepedido': (BuildContext context) => DetallePedido(),
+        'mapaEntrega': (BuildContext context) => MapaPedido(),
       },
     );
   }

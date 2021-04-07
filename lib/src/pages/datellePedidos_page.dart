@@ -5,6 +5,7 @@ import 'package:cosbiome_repartidores/src/models/pedidos_model.dart';
 import 'package:cosbiome_repartidores/src/models/producto_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:mapbox_search/mapbox_search.dart';
 
 class DetallePedido extends StatefulWidget {
   DetallePedido({Key key}) : super(key: key);
@@ -16,15 +17,50 @@ class DetallePedido extends StatefulWidget {
 class _DetallePedidoState extends State<DetallePedido> {
   final _formKey = GlobalKey<FormState>();
   String _firma = '';
+  String _tokenMapBox = 'pk.eyJ1IjoicGVuZ3VpbjQyNCIsImEiOiJja243bHVseTMwcDU5MnpzOTc0eG4zMDdoIn0.HnyfB8werPv2C5hBs3Cw9g';
 
   @override
   Widget build(BuildContext context) {
     final Pedidos pedido = ModalRoute.of(context).settings.arguments;
+    final size = MediaQuery.of(context).size;
+
+    var placesSearch = PlacesSearch(
+      apiKey: _tokenMapBox,
+      limit: 1,
+    );
+
+    Future<List<MapBoxPlace>> getPlaces() async {
+      String busqueda = '${pedido.domicilio} ${pedido.colonia} ${pedido.ciudad} ${pedido.estadoProv} Mexico'.replaceAll('#', '');
+      final data = await placesSearch.getPlaces(busqueda);
+
+      data.forEach((element) { 
+        print(element.geometry.coordinates);
+      });
+
+      return data;
+    }
+
+   
 
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Text('PEDIDO ${pedido.idPedido}')),
         backgroundColor: Color.fromRGBO(103, 181, 30, 1.0),
+         actions: [
+          Container(
+            margin: EdgeInsets.only(right: 10.0),
+            child: IconButton(
+              icon: Icon(Icons.map), 
+              color: Colors.white,
+              onPressed: () async {
+                final direccion = await getPlaces();
+                final cordenadas = direccion[0].geometry.coordinates;
+                
+                Navigator.pushNamed(context, 'mapaEntrega', arguments: cordenadas);
+              }
+            ),
+          )
+        ],
       ),
       body: ListView(
         padding: EdgeInsets.all(10.0),
@@ -103,7 +139,7 @@ class _DetallePedidoState extends State<DetallePedido> {
                 children: [
                   ElevatedButton(
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 15.0),
+                      padding: EdgeInsets.symmetric(horizontal: size.height * .05, vertical: 15.0),
                       child: Text('ENTREGAR'),
                       
                     ),
@@ -133,7 +169,7 @@ class _DetallePedidoState extends State<DetallePedido> {
                   Expanded(child: SizedBox(),),
                   ElevatedButton(
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 15.0),
+                      padding: EdgeInsets.symmetric(horizontal: size.height * .05, vertical: 15.0),
                       child: Text('REGRESAR'),
                       
                     ),
