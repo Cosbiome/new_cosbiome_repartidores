@@ -32,11 +32,6 @@ class _DetallePedidoState extends State<DetallePedido> {
     Future<List<MapBoxPlace>> getPlaces() async {
       String busqueda = '${pedido.domicilio} ${pedido.colonia} ${pedido.ciudad} ${pedido.estadoProv} Mexico'.replaceAll('#', '');
       final data = await placesSearch.getPlaces(busqueda);
-
-      data.forEach((element) { 
-        print(element.geometry.coordinates);
-      });
-
       return data;
     }
 
@@ -115,7 +110,12 @@ class _DetallePedidoState extends State<DetallePedido> {
                     focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
                         color: Color.fromRGBO(103, 181, 30, 1.0)
-                      )
+                      ),                      
+                    ),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color.fromRGBO(103, 181, 30, 1.0)
+                      ),                      
                     ),
                     labelStyle: TextStyle(color:  Color.fromRGBO(103, 181, 30, 1.0))
                     
@@ -139,7 +139,7 @@ class _DetallePedidoState extends State<DetallePedido> {
                 children: [
                   ElevatedButton(
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: size.height * .05, vertical: 15.0),
+                      padding: EdgeInsets.symmetric(horizontal: size.height * .03, vertical: 15.0),
                       child: Text('ENTREGAR'),
                       
                     ),
@@ -150,7 +150,7 @@ class _DetallePedidoState extends State<DetallePedido> {
                     onPressed: () async {
                       try {
                         if(_formKey.currentState.validate()){
-                          pedido.firmaCliente = 'ok';
+                          pedido.firmaCliente = _firma;
                           pedido.esperaRuta = false;
                           pedido.estatusPedido = 'entregado';
                           final pedidoJson = jsonEncode(pedido.toJson());
@@ -169,7 +169,7 @@ class _DetallePedidoState extends State<DetallePedido> {
                   Expanded(child: SizedBox(),),
                   ElevatedButton(
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: size.height * .05, vertical: 15.0),
+                      padding: EdgeInsets.symmetric(horizontal: size.height * .03, vertical: 15.0),
                       child: Text('REGRESAR'),
                       
                     ),

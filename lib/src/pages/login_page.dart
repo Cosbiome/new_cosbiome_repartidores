@@ -127,11 +127,28 @@ class _LoginPageState extends State<LoginPage> {
       padding: EdgeInsets.symmetric(horizontal: 20.0),
       child: TextField(
         keyboardType: TextInputType.text,
+        // decoration: InputDecoration(
+        //   icon: Icon(Icons.account_circle, color: Color.fromRGBO(103, 181, 30, 1.0), size: 32.0,),
+        //   hintText:'Nombre Apellido',
+        //   labelText: 
+        // ),
         decoration: InputDecoration(
-          icon: Icon(Icons.account_circle, color: Color.fromRGBO(103, 181, 30, 1.0), size: 32.0,),
-          hintText:'Nombre Apellido',
-          labelText: 'NOMBRE DE USUARIO'
+          icon: Icon(Icons.account_circle, color: Color.fromRGBO(103, 181, 30, 1.0), size: 32.0,),                 
+          labelText: 'NOMBRE DE USUARIO',
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Color.fromRGBO(103, 181, 30, 1.0)
+            ),                      
+          ),
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Color.fromRGBO(103, 181, 30, 1.0)
+            ),                      
+          ),
+          labelStyle: TextStyle(color:  Color.fromRGBO(103, 181, 30, 1.0))                
         ),
+        style: TextStyle(color:  Color.fromRGBO(103, 181, 30, 1.0)),
+        cursorColor: Color.fromRGBO(103, 181, 30, 1.0),
         onChanged: (value) {
            setState(() {
             _dataLogin['identifier'] = value;
@@ -146,10 +163,27 @@ class _LoginPageState extends State<LoginPage> {
       padding: EdgeInsets.symmetric(horizontal: 20.0),
       child: TextField(
         obscureText: true,
+        // decoration: InputDecoration(
+        //   icon: Icon(Icons.lock_outline, color: Color.fromRGBO(103, 181, 30, 1.0), size: 32.0,),
+        //   labelText: 'CONTRASEÑA'
+        // ),
         decoration: InputDecoration(
-          icon: Icon(Icons.lock_outline, color: Color.fromRGBO(103, 181, 30, 1.0), size: 32.0,),          
-          labelText: 'CONTRASEÑA'
+          icon: Icon(Icons.lock_outline, color: Color.fromRGBO(103, 181, 30, 1.0), size: 32.0,),                 
+          labelText: 'CONTRASEÑA',
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Color.fromRGBO(103, 181, 30, 1.0)
+            ),                      
+          ),
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Color.fromRGBO(103, 181, 30, 1.0)
+            ),                      
+          ),
+          labelStyle: TextStyle(color:  Color.fromRGBO(103, 181, 30, 1.0))                
         ),
+        style: TextStyle(color:  Color.fromRGBO(103, 181, 30, 1.0)),
+        cursorColor: Color.fromRGBO(103, 181, 30, 1.0),
         onChanged: (value) {
           setState(() {
             _dataLogin['password'] = value;

@@ -66,7 +66,7 @@ class _PedidosPageState extends State<PedidosPage> {
           child: Text(
             'PEDIDOS RUTA DE $_usuario\nDINERO RECUPERADO: $_totalPedidosEnt MXN'.toUpperCase(),
             style: TextStyle(
-              fontSize: 14.0
+              fontSize: 12.0
             ),
           )
         ),

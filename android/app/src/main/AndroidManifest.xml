@@ -3,13 +3,21 @@
 
 
   <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
   <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+  <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
+  <!-- Permissions options for the `phone` group -->
+  <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+  <uses-permission android:name="android.permission.CALL_PHONE"/>
+  
    <application
         android:label="cosbiome_repartidores"
         android:icon="@mipmap/ic_launcher">
 
         <meta-data android:name="com.mapbox.token" android:value="pk.eyJ1IjoicGVuZ3VpbjQyNCIsImEiOiJja243bHVseTMwcDU5MnpzOTc0eG4zMDdoIn0.HnyfB8werPv2C5hBs3Cw9g" />
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyBfS_Z0UPldUzDCiv4_l9TsFsT-ThS-Qvg"/>
 
         <activity
             android:name=".MainActivity"
