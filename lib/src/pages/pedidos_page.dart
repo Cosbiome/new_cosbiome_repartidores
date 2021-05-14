@@ -14,6 +14,7 @@ class PedidosPage extends StatefulWidget {
 class _PedidosPageState extends State<PedidosPage> {
 
   String _usuario;
+  bool _fechas = false;
   PedidosProvider pedidosProvider = new PedidosProvider();
   List<Pedidos> _pedidos = [];
   int _totalPedidosEnt = 0;
@@ -44,6 +45,7 @@ class _PedidosPageState extends State<PedidosPage> {
     setState(()  {
       _usuario = perfs.getString('usuario');
       _pedidos = pedidosF;
+      _fechas = perfs.getBool('fechas');
       
       if(pedidosF.length > 0){
 
@@ -77,9 +79,9 @@ class _PedidosPageState extends State<PedidosPage> {
             child: IconButton(
               icon: Icon(Icons.date_range), 
               color: Colors.white,
-              onPressed: () {
+              onPressed: _fechas ? () {
                 _menuBottomToDate(context);
-              }
+              } : null
             ),
           )
         ],

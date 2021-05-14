@@ -4,8 +4,10 @@ import 'dart:io';
 import 'package:cosbiome_repartidores/src/models/pedidos_model.dart';
 import 'package:cosbiome_repartidores/src/models/producto_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:http/http.dart' as http;
 import 'package:mapbox_search/mapbox_search.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DetallePedido extends StatefulWidget {
   DetallePedido({Key key}) : super(key: key);
@@ -18,6 +20,21 @@ class _DetallePedidoState extends State<DetallePedido> {
   final _formKey = GlobalKey<FormState>();
   String _firma = '';
   String _tokenMapBox = 'pk.eyJ1IjoicGVuZ3VpbjQyNCIsImEiOiJja243bHVseTMwcDU5MnpzOTc0eG4zMDdoIn0.HnyfB8werPv2C5hBs3Cw9g';
+  Color _colorAnimated = Color.fromRGBO(103, 181, 30, 0);
+  bool _telefono = false;
+
+  @override
+  void initState() {
+    _getLocalStorage();
+    super.initState();
+  }
+
+  void _getLocalStorage() async {
+    SharedPreferences perfs = await SharedPreferences.getInstance();
+    setState(()  {
+      _telefono = perfs.getBool('telefono');
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +82,25 @@ class _DetallePedidoState extends State<DetallePedido> {
           ListBody(
             children: [
               Text('Nombre del cliente: ${pedido.nombreCliente}', style: TextStyle(fontSize: 16)),
+              Divider(color: Color.fromRGBO(103, 181, 30, 1.0),),
+              AnimatedContainer(
+                duration: Duration(milliseconds: 450),
+                color: _colorAnimated,
+                child: GestureDetector(
+                  child: Text('Numero del cleinte: ${_telefono ? pedido.numTel : '0000000000'}', style: TextStyle(fontSize:18)),
+                  onLongPressEnd: (LongPressEndDetails details) async {
+                    FlutterPhoneDirectCaller.callNumber(_telefono? pedido.numTel : '0000000000');
+                    setState(() {
+                      _colorAnimated = Color.fromRGBO(103, 181, 30, 0);
+                    });
+                  },
+                  onLongPressStart: (LongPressStartDetails details) async {
+                    setState(() {
+                      _colorAnimated = Color.fromRGBO(103, 181, 30, 1.0);
+                  });
+                  },
+                ),
+              ),
               Divider(color: Color.fromRGBO(103, 181, 30, 1.0),),
               Text('Vendedor del cleinte: ${pedido.vendedor}', style: TextStyle(fontSize: 16)),
               Divider(color: Color.fromRGBO(103, 181, 30, 1.0),),

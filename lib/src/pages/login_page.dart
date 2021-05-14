@@ -213,9 +213,13 @@ class _LoginPageState extends State<LoginPage> {
 
           String token  = datares['jwt'];
           String usuario = datares['user']['username'];
+          bool telefono = datares['user']['telefono'];
+          bool fechas = datares['user']['fechas'];
 
           perfs.setString('token', token);
           perfs.setString('usuario', usuario);
+          perfs.setBool('telefono', telefono);
+          perfs.setBool('fechas', fechas);
 
           Navigator.pushNamed(context, 'listapedidos');  
         } catch (e) {          
