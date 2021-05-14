@@ -12,7 +12,7 @@
   <uses-permission android:name="android.permission.CALL_PHONE"/>
   
    <application
-        android:label="cosbiome_repartidores"
+        android:label="SoalNatura Entregas"
         android:icon="@mipmap/ic_launcher">
 
         <meta-data android:name="com.mapbox.token" android:value="pk.eyJ1IjoicGVuZ3VpbjQyNCIsImEiOiJja243bHVseTMwcDU5MnpzOTc0eG4zMDdoIn0.HnyfB8werPv2C5hBs3Cw9g" />
